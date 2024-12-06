@@ -1,5 +1,8 @@
 {
-    "scripts": {
-        "app-start": "cd frontend && npm install && npm run serve"
-    }
+  "scripts": {
+    "app-dev-run": "npm run app-dev-frontend-build && npm run app-dev-frontend-run",
+    "app-dev-frontend-build": "cd frontend && npm install && docker-compose build frontend",
+    "app-dev-frontend-run": "cd frontend && npm run serve",
+    "app-dev-stop": "docker-compose down"
+  }
 }

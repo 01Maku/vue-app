@@ -4,8 +4,19 @@
 
 FRONTEND_DIR = frontend
 
-# Default target to run the Vue app development server
 app-start:
+	npm run serve
+	
+# Build the frontend dependencies
+app-build-frontend:
 	cd $(FRONTEND_DIR) && \
 	npm install && \
-	npm run serve
+	@docker-compose build frontend
+
+# Run the Docker container
+docker-up:
+	@docker-compose up
+
+# Stop the Docker container
+docker-down:
+	@docker-compose down

@@ -10,4 +10,32 @@ services:
       - /app/node_modules
     environment:
       - VUE_APP_API_URL=http://localhost:5000
+    depends_on:
+      - backend
     command: npm run serve
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
+      - DATABASE_URL=postgresql://postgres:password@db:5432/mydatabase
+    depends_on:
+      - database
+
+  database:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydatabase
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"

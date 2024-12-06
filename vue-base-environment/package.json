@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "app-dev-run": "npm run app-dev-frontend-build && npm run app-dev-frontend-run",
+    "app-dev-run": "npm run app-dev-backend-build && npm run app-dev-backend-run & npm run app-dev-frontend-build && npm run app-dev-frontend-run",
+    "app-dev-backend-build": "cd backend && docker-compose build backend",
+    "app-dev-backend-run": "cd backend && docker-compose up -d backend",
     "app-dev-frontend-build": "cd frontend && npm install && docker-compose build frontend",
     "app-dev-frontend-run": "cd frontend && npm run serve",
     "app-dev-stop": "docker-compose down"

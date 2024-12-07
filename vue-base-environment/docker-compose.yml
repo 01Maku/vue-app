@@ -1,5 +1,6 @@
 services:
   frontend:
+    container_name: frontend
     build:
       context: .
       dockerfile: ./frontend/Dockerfile
@@ -15,6 +16,7 @@ services:
     command: npm run serve
 
   backend:
+    container_name: backend
     build:
       context: .
       dockerfile: ./backend/Dockerfile
@@ -25,17 +27,21 @@ services:
     environment:
       - FLASK_APP=app.py
       - FLASK_ENV=development
-      - DATABASE_URL=postgresql://postgres:password@db:5432/mydatabase
+      - DATABASE_URL=postgresql://postgres:password@database:5432/mydatabase
     depends_on:
       - database
 
   database:
+    container_name: database
+    build:
+      context: .
+      dockerfile: ./database/Dockerfile
     image: postgres:13
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: mydatabase
+      POSTGRES_DB: app_database
     volumes:
-      - ./db-data:/var/lib/postgresql/data
+      - ./database/db-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"

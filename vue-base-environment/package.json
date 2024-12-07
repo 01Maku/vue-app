@@ -1,10 +1,18 @@
 {
   "scripts": {
-    "app-dev-run": "npm run app-dev-backend-build && npm run app-dev-backend-run & npm run app-dev-frontend-build && npm run app-dev-frontend-run",
+    "app-dev-run": "app-dev-database-build && app-dev-database-run & npm run app-dev-backend-build && npm run app-dev-backend-run & npm run app-dev-frontend-build && npm run app-dev-frontend-run",
+    "app-dev-database-build": "cd database && docker-compose build database",
+    "app-dev-database-run": "cd database && docker-compose up -d database",
+    "app-dev-database-attach": "docker-compose exec database bash",
+    "app-dev-database-stop": "docker-compose down database",
     "app-dev-backend-build": "cd backend && docker-compose build backend",
     "app-dev-backend-run": "cd backend && docker-compose up -d backend",
+    "app-dev-backend-attach": "docker-compose exec backend bash",
+    "app-dev-backend-stop": "docker-compose down backend",
     "app-dev-frontend-build": "cd frontend && npm install && docker-compose build frontend",
     "app-dev-frontend-run": "cd frontend && npm run serve",
-    "app-dev-stop": "docker-compose down"
+    "app-pro-frontend-run": "docker-compose up -d frontend",
+    "app-pro-frontend-stop": "docker-compose up frontend",
+    "app-stop": "docker-compose down"
   }
 }
